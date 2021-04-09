@@ -1,29 +1,26 @@
 package com.mardonio.backend.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mardonio.backend.domain.Cliente;
+import com.mardonio.backend.services.ClienteService;
 
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	@GetMapping()
-	public List<Cliente> listar() {
-		Cliente c1 = new Cliente(1, "Maria", "11122233344");
-		Cliente c2 = new Cliente(2, "Joao", "99988877766");
-		
-		List<Cliente> lista = new ArrayList<>();
-		
-		lista.add(c1);
-		lista.add(c2);
-		
-		return lista;
+	public ResponseEntity<Cliente> find(@PathVariable Integer id){
+		Cliente clienteObj = clienteService.find(id);
+		return ResponseEntity.ok(clienteObj);
 	}
 
 }
