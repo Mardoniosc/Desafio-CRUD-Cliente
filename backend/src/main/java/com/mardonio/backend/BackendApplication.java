@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.mardonio.backend.domain.Cliente;
 import com.mardonio.backend.domain.Endereco;
+import com.mardonio.backend.domain.Usuario;
+import com.mardonio.backend.domain.enums.Perfil;
 import com.mardonio.backend.repositories.ClienteRepository;
 import com.mardonio.backend.repositories.EnderecoRepository;
+import com.mardonio.backend.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class BackendApplication implements CommandLineRunner {
@@ -20,6 +24,12 @@ public class BackendApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository endRepository;
+	
+	@Autowired
+	private UsuarioRepository userRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
@@ -48,6 +58,13 @@ public class BackendApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(c1, c2));
 		endRepository.saveAll(Arrays.asList(e1, e2));
 		
+		Usuario admin = new Usuario(null, "admin", pe.encode("123456"));
+		Usuario comum = new Usuario(null, "comum", pe.encode("123456"));
+		
+		admin.addPerfil(Perfil.ADMIN);
+		comum.addPerfil(Perfil.COMUM);
+
+		userRepository.saveAll(Arrays.asList(admin, comum));
 
 	}
 
