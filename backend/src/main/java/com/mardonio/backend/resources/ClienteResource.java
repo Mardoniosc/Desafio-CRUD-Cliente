@@ -17,7 +17,7 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@GetMapping()
+	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> find(@PathVariable Integer id){
 		Cliente clienteObj = clienteService.find(id);
 		return ResponseEntity.ok(clienteObj);
