@@ -1,6 +1,7 @@
 package com.mardonio.backend.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class ClienteResource {
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> find(@PathVariable Integer id){
 		Cliente clienteObj = clienteService.find(id);
-		return ResponseEntity.ok(clienteObj);
+		return ResponseEntity.ok().body(clienteObj);
 	}
 	
 	public ResponseEntity<Void> insert(@RequestBody Cliente obj) {
@@ -40,6 +41,12 @@ public class ClienteResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		clienteService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Cliente>> findAll() {
+		List<Cliente> list = clienteService.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 
 }
