@@ -24,4 +24,10 @@ public class ClienteService {
 		obj.setId(null);
 		return clienteRepository.save(obj);
 	}
+	
+	public void delete(Integer id) {
+		find(id);
+		clienteRepository.deleteById(id);			
+	}
+	
 }
