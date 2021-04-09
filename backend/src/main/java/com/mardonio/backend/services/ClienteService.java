@@ -1,5 +1,6 @@
 package com.mardonio.backend.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,13 +11,18 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mardonio.backend.domain.Cliente;
+import com.mardonio.backend.domain.Endereco;
 import com.mardonio.backend.repositories.ClienteRepository;
+import com.mardonio.backend.repositories.EnderecoRepository;
 
 @Service
 public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository endRepository;
 
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
@@ -26,6 +32,10 @@ public class ClienteService {
 	
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
+		obj = clienteRepository.save(obj);
+		Endereco end = obj.getEnderecos().get(0);
+		end.setCliente(obj);
+		endRepository.saveAll(Arrays.asList(end));
 		return clienteRepository.save(obj);
 	}
 	
