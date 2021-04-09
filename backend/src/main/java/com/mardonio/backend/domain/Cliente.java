@@ -13,6 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Cliente implements Serializable {
@@ -21,16 +24,23 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório")
+	@Length(min = 3, max = 100, message = "Tamanho deve ser entre 3 e 100 caracteres")
 	private String nome;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String cpf;
 
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList();
 	
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	@ElementCollection
 	@CollectionTable(name = "EMAIL")
 	private Set<String> emails = new HashSet<>();
