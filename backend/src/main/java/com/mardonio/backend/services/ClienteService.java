@@ -34,6 +34,13 @@ public class ClienteService {
 		clienteRepository.deleteById(id);			
 	}
 	
+	public Cliente update(Cliente obj) {
+		find(obj.getId());
+
+		return clienteRepository.save(obj);
+	}
+
+	
 	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
