@@ -33,7 +33,6 @@ public class BackendApplication implements CommandLineRunner {
 		Cliente c1 = new Cliente(null, "Maria", "22233322233");
 		Cliente c2 = new Cliente(null, "João", "22233344455");
 		
-		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", "Brasilia", "DF", c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "centro", "38777012", "Brasilia", "DF", c2);
 		
