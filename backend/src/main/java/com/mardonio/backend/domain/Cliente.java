@@ -1,11 +1,18 @@
 package com.mardonio.backend.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente implements Serializable {
@@ -16,6 +23,17 @@ public class Cliente implements Serializable {
 	private Integer id;
 	private String nome;
 	private String cpf;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Endereco> enderecos = new ArrayList();
+	
+	@ElementCollection
+	@CollectionTable(name = "TELEFONE")
+	private Set<String> telefones = new HashSet<>();
+	
+	@ElementCollection
+	@CollectionTable(name = "EMAIL")
+	private Set<String> emails = new HashSet<>();
 	
 	public Cliente() {}
 
@@ -48,6 +66,30 @@ public class Cliente implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> endereco) {
+		this.enderecos = endereco;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+	public Set<String> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(Set<String> emails) {
+		this.emails = emails;
 	}
 
 	@Override
