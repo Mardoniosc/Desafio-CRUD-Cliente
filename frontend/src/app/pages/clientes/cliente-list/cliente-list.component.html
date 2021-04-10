@@ -1,1 +1,62 @@
-<p>cliente-list works!</p>
+<nav class="mb-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item active">Clientes</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">Clientes</h1>
+  </div>
+  <div class="col-md">
+    <a routerLink="new" class="btn btn-success float-right">+ Novo Cliente</a>
+  </div>
+</div>
+
+<table class="table table-houver">
+  <thead>
+    <tr class="bg-primary text-light">
+      <th>Clientes</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Maria dos Santos</strong> - <small>(61) 9888-0909</small><br />
+        <small>csa 03 lt 12 app 103, brasilia - DF</small>
+      </td>
+      <td>
+        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
+          >Editar</a
+        >
+        <a class="btn btn-outline-danger btn-sm">Excluir</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Joao dos Santos</strong> - <small>(61) 9888-0909</small><br />
+        <small>csa 03 lt 12 app 103, brasilia - DF</small>
+      </td>
+      <td>
+        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
+          >Editar</a
+        >
+        <a class="btn btn-outline-danger btn-sm">Excluir</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Luiz dos Santos</strong> - <small>(61) 9888-0909</small><br />
+        <small>csa 03 lt 12 app 103, brasilia - DF</small>
+      </td>
+      <td>
+        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
+          >Editar</a
+        >
+        <a class="btn btn-outline-danger btn-sm">Excluir</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
