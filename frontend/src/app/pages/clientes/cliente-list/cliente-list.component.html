@@ -22,40 +22,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngFor="let cli of clientes">
       <td>
-        <strong>Maria dos Santos</strong> - <small>(61) 9888-0909</small><br />
-        <small>csa 03 lt 12 app 103, brasilia - DF</small>
+        <strong>{{cli.nome}} </strong> <small *ngFor="let item of cli?.telefones">/ {{ item }}</small><br />
+        emails: <small *ngFor="let email of cli.emails"> {{ email }}</small>
       </td>
       <td>
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
+        <a [routerLink]="[cli.id, 'edit']" class="btn btn-outline-info btn-sm mr-2"
           >Editar</a
         >
-        <a class="btn btn-outline-danger btn-sm">Excluir</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Joao dos Santos</strong> - <small>(61) 9888-0909</small><br />
-        <small>csa 03 lt 12 app 103, brasilia - DF</small>
-      </td>
-      <td>
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
-          >Editar</a
-        >
-        <a class="btn btn-outline-danger btn-sm">Excluir</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Luiz dos Santos</strong> - <small>(61) 9888-0909</small><br />
-        <small>csa 03 lt 12 app 103, brasilia - DF</small>
-      </td>
-      <td>
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
-          >Editar</a
-        >
-        <a class="btn btn-outline-danger btn-sm">Excluir</a>
+        <a class="btn btn-outline-danger btn-sm" (click)="deleteCliente(cli)">Excluir</a>
       </td>
     </tr>
   </tbody>
