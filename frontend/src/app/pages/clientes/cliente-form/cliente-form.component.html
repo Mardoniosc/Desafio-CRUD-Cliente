@@ -1,1 +1,88 @@
-<p>cliente-form works!</p>
+<nav class="mb-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/clientes">Clientes</a></li>
+    <li class="breadcrumb-item active">Formulário de Clientes</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">Formulário de Clientes</h1>
+  </div>
+  <div class="col-md">
+    <a routerLink="/clientes" class="btn btn-light float-right">
+      << Voltar
+    </a>
+  </div>
+</div>
+
+<form>
+  <div class="card">
+    <div class="card-header">Informações sobre o cliente</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label for="name">Nome *</label>
+          <input type="text" class="form-control" id="name" />
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="cpf">CPF *</label>
+          <input type="number" class="form-control" id="cpf" />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="telefone">Telefone *</label>
+          <input type="text" class="form-control" id="telefone" />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="email">E-mail *</label>
+          <input type="text" class="form-control" id="email" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card mt-5">
+    <div class="card-header">Endereço do cliente</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="cep">CEP *</label>
+          <input type="number" class="form-control" id="cep" />
+        </div>
+        <div class="form-group col-md-8">
+          <label for="logradouro">Logradouro *</label>
+          <input type="text" class="form-control" id="logradouro" />
+        </div>
+
+        <div class="form-group col-md-1">
+          <label for="numero">Número *</label>
+          <input type="number" class="form-control" id="numero" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="bairro">Bairro *</label>
+          <input type="text" class="form-control" id="bairro" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="complemento">Complemento</label>
+          <input type="text" class="form-control" id="complemento" />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="cidade">Cidade *</label>
+          <input type="text" class="form-control" id="cidade" />
+        </div>
+        <div class="form-group col-md-1">
+          <label for="estado">Estado *</label>
+          <input type="text" class="form-control" id="estado" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-lg mt-3 mb-5 float-right">
+    Salvar
+  </button>
+</form>
