@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
+import { BaseResourceService } from 'src/app/shared/services/base-resource.service';
 import { Cliente } from "../models/cliente.model";
 @Injectable({
   providedIn: 'root',
 })
-export class ClienteService {
-  private apiPath: string = 'api/clientes';
+export class ClienteService extends BaseResourceService<Cliente> {
 
-  constructor() {}
+  constructor(protected injector: Injector) {
+    super('api/clientes', injector)
+  }
 }
