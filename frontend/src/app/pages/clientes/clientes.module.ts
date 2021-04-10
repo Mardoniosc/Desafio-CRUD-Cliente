@@ -7,6 +7,7 @@ import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 import { CpfPipe } from 'src/app/core/pipes/cpf.pipe';
 import { CepPipe } from 'src/app/core/pipes/cep.pipe';
 import { TelefonePipe } from 'src/app/core/pipes/telefone.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ClienteListComponent,
@@ -19,6 +20,7 @@ import { TelefonePipe } from 'src/app/core/pipes/telefone.pipe';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     ClientesRoutingModule,
   ],
 
