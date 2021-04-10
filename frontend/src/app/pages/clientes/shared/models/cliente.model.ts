@@ -1,6 +1,7 @@
+import { BaseResourceModel } from 'src/app/shared/models/base-resource.model';
 import { Endereco } from './endereco.model';
 
-export class Cliente {
+export class Cliente extends BaseResourceModel {
   constructor(
     public id?: number,
     public nome?: string,
@@ -8,5 +9,7 @@ export class Cliente {
     public enderecos?: Endereco[],
     public telefones?: string[],
     public emails?: string[]
-  ) {}
+  ) {
+    super();
+  }
 }
