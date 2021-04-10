@@ -2,42 +2,55 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
     <li class="breadcrumb-item"><a routerLink="/clientes">Clientes</a></li>
-    <li class="breadcrumb-item active">Formulário de Clientes</li>
+    <li class="breadcrumb-item active">{{ pageTitle }}</li>
   </ol>
 </nav>
 
 <div class="row mb-4">
   <div class="col-md">
-    <h1 class="h2 border-left pl-2">Formulário de Clientes</h1>
+    <h1 class="h2 border-left pl-2">{{ pageTitle }}</h1>
   </div>
   <div class="col-md">
     <a routerLink="/clientes" class="btn btn-light float-right">
-      << Voltar
-    </a>
+      << Voltar </a>
   </div>
 </div>
 
-<form [formGroup]="clienteForm">
+<form [formGroup]="clienteForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">Informações sobre o cliente</div>
     <div class="card-body">
       <div class="form-row">
         <div class="form-group col-md-8">
-          <label for="name">Nome *</label>
-          <input type="text" class="form-control" id="name" />
+          <label for="nome">Nome *</label>
+          <input type="text" class="form-control" id="nome" formControlName="nome" />
+          <div class="text-danger" *ngIf="clienteForm.get('nome').invalid && clienteForm.get('nome').touched">
+            <div *ngIf="clienteForm.get('nome').errors.required">Preenchimento Obrigatório</div>
+            <div *ngIf="clienteForm.get('nome').errors.minlength">Deve ter no mínimo 3 caracteres e no máximo 100</div>
+          </div>
         </div>
 
         <div class="form-group col-md-4">
           <label for="cpf">CPF *</label>
-          <input type="number" class="form-control" id="cpf" />
+          <input type="number" class="form-control" id="cpf" formControlName="cpf" />
+          <div class="text-danger" *ngIf="clienteForm.get('cpf').invalid && clienteForm.get('cpf').touched">
+            <div *ngIf="clienteForm.get('cpf').errors.required">Preenchimento Obrigatório</div>
+          </div>
         </div>
         <div class="form-group col-md-4">
-          <label for="telefone">Telefone *</label>
-          <input type="text" class="form-control" id="telefone" />
+          <label for="telefones">Telefone *</label>
+          <input type="text" class="form-control" id="telefones" formControlName="telefones" />
+          <div class="text-danger" *ngIf="clienteForm.get('telefones').invalid && clienteForm.get('telefones').touched">
+            <div *ngIf="clienteForm.get('telefones').errors.required">Preenchimento Obrigatório</div>
+          </div>
         </div>
         <div class="form-group col-md-4">
-          <label for="email">E-mail *</label>
-          <input type="text" class="form-control" id="email" />
+          <label for="emails">E-mail *</label>
+          <input type="text" class="form-control" id="emails" formControlName="emails" />
+          <div class="text-danger" *ngIf="clienteForm.get('emails').invalid && clienteForm.get('emails').touched">
+            <div *ngIf="clienteForm.get('emails').errors.required">Preenchimento Obrigatório</div>
+            <div *ngIf="clienteForm.get('emails').errors.email">E-mail invalido</div>
+          </div>
         </div>
       </div>
 
@@ -47,42 +60,48 @@
   <div class="card mt-5">
     <div class="card-header">Endereço do cliente</div>
     <div class="card-body">
-      <div class="form-row">
-        <div class="form-group col-md-3">
-          <label for="cep">CEP *</label>
-          <input type="number" class="form-control" id="cep" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="logradouro">Logradouro *</label>
-          <input type="text" class="form-control" id="logradouro" />
-        </div>
+      <div formArrayName="enderecos" *ngFor="let end of clienteForm.controls.enderecos?.value; let i = index">
+        <ng-container [formGroupName]="i" ]>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="cep">CEP *</label>
+              <input type="number" class="form-control" id="cep" formControlName="cep" />
+            </div>
 
-        <div class="form-group col-md-1">
-          <label for="numero">Número *</label>
-          <input type="number" class="form-control" id="numero" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="bairro">Bairro *</label>
-          <input type="text" class="form-control" id="bairro" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="complemento">Complemento</label>
-          <input type="text" class="form-control" id="complemento" />
-        </div>
-        <div class="form-group col-md-4">
-          <label for="cidade">Cidade *</label>
-          <input type="text" class="form-control" id="cidade" />
-        </div>
-        <div class="form-group col-md-1">
-          <label for="estado">Estado *</label>
-          <input type="text" class="form-control" id="estado" />
-        </div>
+            <div class="form-group col-md-8">
+              <label for="logradouro">Logradouro *</label>
+              <input type="text" class="form-control" id="logradouro" formControlName="cep" />
+            </div>
+
+            <div class="form-group col-md-1">
+              <label for="numero">Número *</label>
+              <input type="number" class="form-control" id="numero" formControlName="numero" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="bairro">Bairro *</label>
+              <input type="text" class="form-control" id="bairro" formControlName="bairro" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="complemento">Complemento</label>
+              <input type="text" class="form-control" id="complemento" formControlName="complemento" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="cidade">Cidade *</label>
+              <input type="text" class="form-control" id="cidade" formControlName="cidade" />
+            </div>
+            <div class="form-group col-md-1">
+              <label for="estado">Estado *</label>
+              <input type="text" class="form-control" id="estado" formControlName="estado" />
+            </div>
+          </div>
+        </ng-container>
       </div>
 
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary btn-lg mt-3 mb-5 float-right">
+  <button [disabled]="submittingForm || clienteForm.invalid" type="submit"
+    class="btn btn-primary btn-lg mt-3 mb-5 float-right">
     Salvar
   </button>
 </form>
