@@ -20,7 +20,7 @@ export class InMemoryDatabase implements InMemoryDbService {
             estado: 'DF',
           },
         ],
-        telefones: ['6122223333', '6198887777'],
+        telefones: ['6122223333', '61998887777'],
         emails: [
           'email3@empresa.com',
           'email2@hotmail.com',
@@ -30,7 +30,7 @@ export class InMemoryDatabase implements InMemoryDbService {
       {
         id: 2,
         nome: 'Maria',
-        cpf: '22233322233',
+        cpf: '02233322233',
         enderecos: [
           {
             id: 1,
@@ -43,7 +43,7 @@ export class InMemoryDatabase implements InMemoryDbService {
             estado: 'DF',
           },
         ],
-        telefones: ['6122223333', '6198887777'],
+        telefones: ['6122223333', '61988887777'],
         emails: [
           'email3@empresa.com',
           'email2@hotmail.com',
@@ -66,7 +66,7 @@ export class InMemoryDatabase implements InMemoryDbService {
             estado: 'DF',
           },
         ],
-        telefones: ['6122223333', '6198887777'],
+        telefones: ['6122223333', '61958887777'],
         emails: [
           'email3@empresa.com',
           'email2@hotmail.com',
