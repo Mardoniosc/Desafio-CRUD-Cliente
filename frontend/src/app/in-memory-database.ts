@@ -1,0 +1,78 @@
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+
+export class InMemoryDatabase implements InMemoryDbService {
+  createDb() {
+    const clientes = [
+      {
+        id: 1,
+        nome: 'Maria',
+        cpf: '22233322233',
+        enderecos: [
+          {
+            id: 1,
+            logradouro: 'Rua Flores',
+            numero: '300',
+            complemento: 'Apto 303',
+            bairro: 'Jardim',
+            cep: '38220834',
+            cidade: 'Brasilia',
+            estado: 'DF',
+          },
+        ],
+        telefones: ['6122223333', '6198887777'],
+        emails: [
+          'email3@empresa.com',
+          'email2@hotmail.com',
+          'email1@gmail.com',
+        ],
+      },
+      {
+        id: 2,
+        nome: 'Maria',
+        cpf: '22233322233',
+        enderecos: [
+          {
+            id: 1,
+            logradouro: 'Rua Flores',
+            numero: '300',
+            complemento: 'Apto 303',
+            bairro: 'Jardim',
+            cep: '38220834',
+            cidade: 'Brasilia',
+            estado: 'DF',
+          },
+        ],
+        telefones: ['6122223333', '6198887777'],
+        emails: [
+          'email3@empresa.com',
+          'email2@hotmail.com',
+          'email1@gmail.com',
+        ],
+      },
+      {
+        id: 3,
+        nome: 'João',
+        cpf: '22233344455',
+        enderecos: [
+          {
+            id: 2,
+            logradouro: 'Avenida Matos',
+            numero: '105',
+            complemento: 'sala 800',
+            bairro: 'centro',
+            cep: '38777012',
+            cidade: 'Brasilia',
+            estado: 'DF',
+          },
+        ],
+        telefones: ['6122223333', '6198887777'],
+        emails: [
+          'email3@empresa.com',
+          'email2@hotmail.com',
+          'email1@gmail.com',
+        ],
+      },
+    ];
+    return { clientes };
+  }
+}
