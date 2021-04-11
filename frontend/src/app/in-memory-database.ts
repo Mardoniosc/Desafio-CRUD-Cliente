@@ -6,7 +6,7 @@ export class InMemoryDatabase implements InMemoryDbService {
     const clientes: Cliente[] = [
       {
         id: 1,
-        nome: 'Maria',
+        nome: 'Maria Santos Costa',
         cpf: '22233322233',
         enderecos: [
           {
@@ -29,7 +29,7 @@ export class InMemoryDatabase implements InMemoryDbService {
       },
       {
         id: 2,
-        nome: 'Maria',
+        nome: 'Maria Filomena da Conceição',
         cpf: '02233322233',
         enderecos: [
           {
@@ -52,7 +52,7 @@ export class InMemoryDatabase implements InMemoryDbService {
       },
       {
         id: 3,
-        nome: 'João',
+        nome: 'João Miguel Alcantara',
         cpf: '22233344455',
         enderecos: [
           {

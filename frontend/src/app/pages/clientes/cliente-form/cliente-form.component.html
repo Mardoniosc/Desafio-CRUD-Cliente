@@ -33,7 +33,7 @@
 
         <div class="form-group col-md-4">
           <label for="cpf">CPF *</label>
-          <input type="text" class="form-control" id="cpf" formControlName="cpf" />
+          <input type="text" class="form-control" id="cpf" formControlName="cpf" mask="000.000.000-00" />
           <div class="text-danger" *ngIf="clienteForm.get('cpf').invalid && clienteForm.get('cpf').touched">
             <div *ngIf="clienteForm.get('cpf').errors.required">Preenchimento Obrigatório</div>
           </div>
@@ -46,7 +46,7 @@
                 (click)="addTelefone('')">+</button>
               <button type="button" class="btn-danger rounded-circle ml-2" *ngIf="i != 0"
                 (click)="removeTelefone(i)">X</button>
-              <input type="text" class="form-control" id="fone" [formControlName]="i" />
+              <input type="text" class="form-control" id="fone" [formControlName]="i" mask="(00) 0000-0000 || (00) 0 0000-0000"/>
               <div class="text-danger"
                 *ngIf="clienteForm.get('telefones').controls[i].invalid && clienteForm.get('telefones').touched">
                 <div *ngIf="clienteForm.get('telefones').controls[i].errors.required">Preenchimento Obrigatório</div>
@@ -87,7 +87,7 @@
           <div class="form-row">
             <div class="form-group col-md-3">
               <label for="cep">CEP *</label>
-              <input type="text" class="form-control" id="cep" formControlName="cep" />
+              <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000"/>
               <div class="text-danger"
                 *ngIf="clienteForm.get('enderecos').controls[i].controls['cep'].invalid && clienteForm.get('enderecos').controls[i].controls['cep'].touched">
                 <div *ngIf="clienteForm.get('enderecos').controls[i].controls['cep'].errors.required">Preenchimento
