@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
         let token = this.storangeService.getLocalToken();
         const dadosUser = JSON.parse(atob(token.split('.')[1]));
         this.storangeService.setLocalUser(dadosUser);
-        // this.router.navigate(['/']);
+        this.router.navigate(['/']);
       },
       (err) => {
         toastr.error('Usuário/Senha incorreto!');
