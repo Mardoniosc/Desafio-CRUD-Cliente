@@ -91,14 +91,14 @@ export class ClienteFormComponent implements OnInit {
   addEmail(mail: string) {
     const email = this.clienteForm.controls.emails as FormArray;
     email.push(
-      new FormControl(mail)
+      new FormControl(mail, [Validators.required, Validators.email])
     );
   }
 
   addTelefone(fone: string) {
     const telefone = this.clienteForm.controls.telefones as FormArray;
     telefone.push(
-      new FormControl(fone)
+      new FormControl(fone, Validators.required)
     );
   }
 
@@ -123,15 +123,21 @@ export class ClienteFormComponent implements OnInit {
         .subscribe(
           (data) => {
             this.cliente = data;
+            if(this.cliente.emails.length <= 0) {
+              this.addEmail('');
+            }
+            if(this.cliente.telefones.length <= 0) {
+              this.addTelefone('')
+            }
             this.clienteForm.patchValue(this.cliente);
             this.cliente.emails.forEach((x) => this.addEmail(x));
             this.cliente.telefones.forEach((x) => this.addTelefone(x));
-            console.log('Cliente => ', this.cliente);
-            console.log('Form Cliente', this.clienteForm.value);
-            console.log('Emails => ', this.clienteForm.get('emails').value)
           },
           (err) => console.error('Erro ao carregar a cliente', err)
         );
+    } else {
+      this.addEmail('')
+      this.addTelefone('')
     }
   }
 
@@ -162,8 +168,6 @@ export class ClienteFormComponent implements OnInit {
       this.clienteForm.value
     );
 
-    console.log('Dados Cliente form => ',this.clienteForm.value);
-    console.log('Telefones => ', this.clienteForm.get('telefones').value)
     this.clienteService.update(cliente).subscribe(
       (cliente) => this.actionForSuccess(cliente),
       (err) => this.actionForError(err)

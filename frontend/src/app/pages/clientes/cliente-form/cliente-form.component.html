@@ -33,7 +33,7 @@
 
         <div class="form-group col-md-4">
           <label for="cpf">CPF *</label>
-          <input type="number" class="form-control" id="cpf" formControlName="cpf" />
+          <input type="text" class="form-control" id="cpf" formControlName="cpf" />
           <div class="text-danger" *ngIf="clienteForm.get('cpf').invalid && clienteForm.get('cpf').touched">
             <div *ngIf="clienteForm.get('cpf').errors.required">Preenchimento Obrigatório</div>
           </div>
@@ -42,14 +42,16 @@
           <div class="form-group col-md-12">
             <ng-container>
               <label for="fone">Telefone {{i + 1}}* </label>
-              <button type="button" class="btn-primary rounded-circle ml-2" *ngIf="i == 0" (click)="addTelefone('')">+</button>
-              <button type="button" class="btn-danger rounded-circle ml-2" *ngIf="i != 0" (click)="removeTelefone(i)">X</button>
+              <button type="button" class="btn-primary rounded-circle ml-2" *ngIf="i == 0"
+                (click)="addTelefone('')">+</button>
+              <button type="button" class="btn-danger rounded-circle ml-2" *ngIf="i != 0"
+                (click)="removeTelefone(i)">X</button>
               <input type="text" class="form-control" id="fone" [formControlName]="i" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('telefones').controls[i].invalid && clienteForm.get('telefones').touched">
+                <div *ngIf="clienteForm.get('telefones').controls[i].errors.required">Preenchimento Obrigatório</div>
+              </div>
             </ng-container>
-            <div class="text-danger"
-              *ngIf="clienteForm.get('telefones').invalid && clienteForm.get('telefones').touched">
-              <div *ngIf="clienteForm.get('telefones').errors.required">Preenchimento Obrigatório</div>
-            </div>
           </div>
         </div>
 
@@ -57,14 +59,18 @@
           <div class="form-group col-md-12">
             <ng-container>
               <label for="email">E-mail {{i + 1}}* </label>
-              <button type="button" class="btn-primary rounded-circle ml-2" *ngIf="i == 0" (click)="addEmail('')">+</button>
-              <button type="button" class="btn-danger rounded-circle ml-2" *ngIf="i != 0" (click)="removeEmail(i)">X</button>
+              <button type="button" class="btn-primary rounded-circle ml-2" *ngIf="i == 0"
+                (click)="addEmail('')">+</button>
+              <button type="button" class="btn-danger rounded-circle ml-2" *ngIf="i != 0"
+                (click)="removeEmail(i)">X</button>
               <input type="text" class="form-control" id="email" [formControlName]="i" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('emails').controls[i].invalid && clienteForm.get('emails').touched">
+                <div *ngIf="clienteForm.get('emails').controls[i].errors.email">E-mail invalido</div>
+                <div *ngIf="clienteForm.get('emails').controls[i].errors.required">Preenchimento Obrigatório</div>
+              </div>
             </ng-container>
-            <div class="text-danger" *ngIf="clienteForm.get('emails').invalid && clienteForm.get('emails').touched">
-              <div *ngIf="clienteForm.get('emails').errors.required">Preenchimento Obrigatório</div>
-              <div *ngIf="clienteForm.get('emails').errors.email">E-mail invalido</div>
-            </div>
+
           </div>
         </div>
         <br />
@@ -77,25 +83,45 @@
     <div class="card-header">Endereço do cliente</div>
     <div class="card-body">
       <div formArrayName="enderecos" *ngFor="let end of clienteForm.get('enderecos')['controls']; let i = index">
-        <ng-container [formGroupName]="i" ]>
+        <ng-container [formGroupName]="i">
           <div class="form-row">
             <div class="form-group col-md-3">
               <label for="cep">CEP *</label>
-              <input type="number" class="form-control" id="cep" formControlName="cep" />
+              <input type="text" class="form-control" id="cep" formControlName="cep" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('enderecos').controls[i].controls['cep'].invalid && clienteForm.get('enderecos').controls[i].controls['cep'].touched">
+                <div *ngIf="clienteForm.get('enderecos').controls[i].controls['cep'].errors.required">Preenchimento
+                  Obrigatório</div>
+              </div>
             </div>
 
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-7">
               <label for="logradouro">Logradouro *</label>
               <input type="text" class="form-control" id="logradouro" formControlName="logradouro" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('enderecos').controls[i].controls['logradouro'].invalid && clienteForm.get('enderecos').controls[i].controls['logradouro'].touched">
+                <div *ngIf="clienteForm.get('enderecos').controls[i].controls['logradouro'].errors.required">
+                  Preenchimento Obrigatório</div>
+              </div>
             </div>
 
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
               <label for="numero">Número *</label>
               <input type="number" class="form-control" id="numero" formControlName="numero" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('enderecos').controls[i].controls['numero'].invalid && clienteForm.get('enderecos').controls[i].controls['numero'].touched">
+                <div *ngIf="clienteForm.get('enderecos').controls[i].controls['numero'].errors.required">Preenchimento
+                  Obrigatório</div>
+              </div>
             </div>
             <div class="form-group col-md-6">
               <label for="bairro">Bairro *</label>
               <input type="text" class="form-control" id="bairro" formControlName="bairro" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('enderecos').controls[i].controls['bairro'].invalid && clienteForm.get('enderecos').controls[i].controls['bairro'].touched">
+                <div *ngIf="clienteForm.get('enderecos').controls[i].controls['bairro'].errors.required">Preenchimento
+                  Obrigatório</div>
+              </div>
             </div>
             <div class="form-group col-md-6">
               <label for="complemento">Complemento</label>
@@ -104,10 +130,20 @@
             <div class="form-group col-md-4">
               <label for="cidade">Cidade *</label>
               <input type="text" class="form-control" id="cidade" formControlName="cidade" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('enderecos').controls[i].controls['cidade'].invalid && clienteForm.get('enderecos').controls[i].controls['cidade'].touched">
+                <div *ngIf="clienteForm.get('enderecos').controls[i].controls['cidade'].errors.required">Preenchimento
+                  Obrigatório</div>
+              </div>
             </div>
             <div class="form-group col-md-1">
               <label for="estado">Estado *</label>
               <input type="text" class="form-control" id="estado" formControlName="estado" />
+              <div class="text-danger"
+                *ngIf="clienteForm.get('enderecos').controls[i].controls['estado'].invalid && clienteForm.get('enderecos').controls[i].controls['estado'].touched">
+                <div *ngIf="clienteForm.get('enderecos').controls[i].controls['estado'].errors.required">Preenchimento
+                  Obrigatório</div>
+              </div>
             </div>
           </div>
         </ng-container>
