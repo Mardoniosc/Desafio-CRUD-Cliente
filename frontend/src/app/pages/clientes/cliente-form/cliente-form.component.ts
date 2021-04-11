@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
@@ -71,8 +71,8 @@ export class ClienteFormComponent implements OnInit {
         ],
       ],
       cpf: [null, [Validators.required]],
-      telefones: [null, Validators.required],
-      emails: [null, Validators.required],
+      telefones: this.formBuilder.array([]),
+      emails: this.formBuilder.array([]),
       enderecos: this.formBuilder.array([
         this.formBuilder.group({
           id: [null],
@@ -88,6 +88,30 @@ export class ClienteFormComponent implements OnInit {
     });
   }
 
+  addEmail(mail: string) {
+    const email = this.clienteForm.controls.emails as FormArray;
+    email.push(
+      new FormControl(mail)
+    );
+  }
+
+  addTelefone(fone: string) {
+    const telefone = this.clienteForm.controls.telefones as FormArray;
+    telefone.push(
+      new FormControl(fone)
+    );
+  }
+
+  removeEmail(i: number) {
+    const email = this.clienteForm.controls.emails as FormArray;
+    email.removeAt(i);
+  }
+
+  removeTelefone(i: number) {
+    const telefone = this.clienteForm.controls.telefones as FormArray;
+    telefone.removeAt(i)
+  }
+
   private loadCliente() {
     if (this.currentAction === 'edit') {
       this.route.paramMap
@@ -100,6 +124,11 @@ export class ClienteFormComponent implements OnInit {
           (data) => {
             this.cliente = data;
             this.clienteForm.patchValue(this.cliente);
+            this.cliente.emails.forEach((x) => this.addEmail(x));
+            this.cliente.telefones.forEach((x) => this.addTelefone(x));
+            console.log('Cliente => ', this.cliente);
+            console.log('Form Cliente', this.clienteForm.value);
+            console.log('Emails => ', this.clienteForm.get('emails').value)
           },
           (err) => console.error('Erro ao carregar a cliente', err)
         );
@@ -133,6 +162,8 @@ export class ClienteFormComponent implements OnInit {
       this.clienteForm.value
     );
 
+    console.log('Dados Cliente form => ',this.clienteForm.value);
+    console.log('Telefones => ', this.clienteForm.get('telefones').value)
     this.clienteService.update(cliente).subscribe(
       (cliente) => this.actionForSuccess(cliente),
       (err) => this.actionForError(err)
