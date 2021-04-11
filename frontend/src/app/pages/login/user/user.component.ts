@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import toastr from 'toastr';
 import { Login } from '../shared/login.model';
 import { LoginService } from '../shared/login.service';
@@ -15,6 +16,7 @@ export class UserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private storangeService: StorageService,
     private loginService: LoginService
   ) {}
 
@@ -37,13 +39,18 @@ export class UserComponent implements OnInit {
     const login: Login = this.form.value;
 
     this.loginService.logar(login).subscribe(
-      data => {
+      (data) => {
         toastr.success('Usuário logado com sucesso');
-        this.router.navigate(['/'])
+        let token = this.storangeService.getLocalToken();
+        const dadosUser = JSON.parse(atob(token.split('.')[1]));
+        this.storangeService.setLocalUser(dadosUser);
+        // this.router.navigate(['/']);
       },
-      err => {
-        toastr.error('Usuário/Senha incorreto!')
+      (err) => {
+        toastr.error('Usuário/Senha incorreto!');
+        this.storangeService.setLocalUser(null);
+        this.storangeService.setLocalToken(null);
       }
-    )
+    );
   }
 }
