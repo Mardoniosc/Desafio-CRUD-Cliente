@@ -59,7 +59,6 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   protected handleError(error: any): Observable<any> {
-    console.log('Erro na requisição => ', error);
     return throwError(error);
   }
 }

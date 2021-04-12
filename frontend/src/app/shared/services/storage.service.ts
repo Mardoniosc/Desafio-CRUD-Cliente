@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Login } from 'src/app/pages/login/shared/login.model';
 import { STORAGE_KEYS } from '../config/storange-keys.config';
+import { DadosUserLogado } from '../models/dados-user-logado.mode';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class StorageService {
 
   constructor() { }
 
-  getLocalUser(): Login {
+  getLocalUser(): DadosUserLogado {
     const usr = localStorage.getItem(STORAGE_KEYS.localUser);
 
     if (usr == null) {
@@ -19,7 +20,7 @@ export class StorageService {
     return JSON.parse(usr);
   }
 
-  setLocalUser(obj: Login): void {
+  setLocalUser(obj: DadosUserLogado): void {
     if (obj == null) {
       localStorage.removeItem(STORAGE_KEYS.localUser);
       return;
