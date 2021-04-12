@@ -7,6 +7,8 @@ import { CpfPipe } from '../core/pipes/cpf.pipe';
 import { NgxMaskModule } from 'ngx-mask';
 import { AuthGuard } from './services/auth.guard';
 import { AdminGuard } from './services/admin.guard';
+import { CEP } from './models/cep.model';
+import { DadosUserLogado } from './models/dados-user-logado.mode';
 
 @NgModule({
   declarations: [CpfPipe, CepPipe, TelefonePipe],

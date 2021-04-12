@@ -1,14 +1,14 @@
 export class CEP {
   constructor(
-    cep: string,
-    logradouro: string,
-    complemento: string,
-    bairro: string,
-    localidade: string,
-    uf: string,
-    ibge: string,
-    gia: string,
-    ddd: string,
-    siafi: string
+    public cep?: string,
+    public logradouro?: string,
+    public complemento?: string,
+    public bairro?: string,
+    public localidade?: string,
+    public uf?: string,
+    public ibge?: string,
+    public gia?: string,
+    public ddd?: string,
+    public siafi?: string
   ) {}
 }

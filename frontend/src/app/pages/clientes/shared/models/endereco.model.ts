@@ -1,12 +1,12 @@
 export class Endereco {
   constructor(
-        id?: number,
-        logradouro?: string,
-        numero?: string,
-        complemento?: string,
-        bairro?: string,
-        cep?: string,
-        cidade?: string,
-        estado?: string,
+    public id?: number,
+    public logradouro?: string,
+    public numero?: string,
+    public complemento?: string,
+    public bairro?: string,
+    public cep?: string,
+    public cidade?: string,
+    public estado?: string
   ) {}
 }

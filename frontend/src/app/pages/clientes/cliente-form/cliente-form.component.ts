@@ -9,6 +9,8 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
+import { CEP } from 'src/app/shared/models/cep.model';
+import { CepService } from 'src/app/shared/services/cep.service';
 import toastr from 'toastr';
 import { Cliente } from '../shared/models/cliente.model';
 import { Endereco } from '../shared/models/endereco.model';
@@ -26,13 +28,15 @@ export class ClienteFormComponent implements OnInit {
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
   cliente: Cliente = new Cliente();
-  endereco: Endereco;
+  enderecoCapturadoPorCep: CEP = {} as CEP;
+  endereco: Endereco = {} as Endereco;
 
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cepService: CepService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +56,27 @@ export class ClienteFormComponent implements OnInit {
       this.createCliente();
     } else {
       this.updateCliente();
+    }
+  }
+
+  buscarCep(cep: string) {
+    cep = cep.replace(/[^0-9]/g, '');
+    if (cep.length > 7) {
+      this.cepService.getByEnderecoToCep(cep).subscribe(
+        (end) => {
+          if(end['erro']) {
+            toastr.error('Cep informado não encontrado', 'Erro 404')
+            return;
+          }
+          this.enderecoCapturadoPorCep = end;
+          this.loadEnderecoBuscaCep();
+        },
+        (err) =>
+          toastr.err(
+            'Erro ao buscar dados do cep informado',
+            'Erro ' + err.status
+          )
+      );
     }
   }
 
@@ -136,8 +161,8 @@ export class ClienteFormComponent implements OnInit {
             this.cliente.telefones.forEach((x) => this.addTelefone(x));
           },
           (err) => {
-            if(err.status === 403) {
-              toastr.error('Acesso Negado', 'Erro ' + err.status)
+            if (err.status === 403) {
+              toastr.error('Acesso Negado', 'Erro ' + err.status);
             } else {
               toastr.error(err.error.message, 'Erro ' + err.status);
             }
@@ -210,5 +235,20 @@ export class ClienteFormComponent implements OnInit {
         'Falha na comunicação com o servidor. Favor tente mais tarde!',
       ];
     }
+  }
+
+  private loadEnderecoBuscaCep() {
+    let cliente: Cliente = {} as Cliente;
+    this.preencheEndereco();
+    cliente.enderecos = [this.endereco];
+    this.clienteForm.patchValue(cliente);
+  }
+
+  private preencheEndereco(): void {
+    this.endereco.cep = this.enderecoCapturadoPorCep.cep;
+    this.endereco.bairro = this.enderecoCapturadoPorCep.bairro;
+    this.endereco.cidade = this.enderecoCapturadoPorCep.localidade;
+    this.endereco.estado = this.enderecoCapturadoPorCep.uf;
+    this.endereco.logradouro = this.enderecoCapturadoPorCep.logradouro;
   }
 }
