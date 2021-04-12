@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
+import { DadosUserLogado } from '../models/dados-user-logado.mode';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,20 @@ export class HttpUtilService {
     return { headers: httpHeaders };
   }
 
-  obterDadosUsuario() {
+  obterDadosUsuario(): DadosUserLogado {
     if (!this.storageService.getLocalToken()) {
       return;
     }
 
     return JSON.parse(atob(this.storageService.getLocalToken().split('.')[1]));
+  }
+
+  obterPerfil(): string {
+    if(!this.storageService.getLocalToken()) {
+      return '';
+    }
+
+    const dadosUsuario: DadosUserLogado = this.obterDadosUsuario();
+    return dadosUsuario ? dadosUsuario.perfil[0] : '';
   }
 }

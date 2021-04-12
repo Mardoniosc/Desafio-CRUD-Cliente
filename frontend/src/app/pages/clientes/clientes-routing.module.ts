@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/shared/services/auth.guard';
 import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 import { ClienteListComponent } from './cliente-list/cliente-list.component';
 
 const routes: Routes = [
-  { path: '', component: ClienteListComponent },
-  { path: 'new', component: ClienteFormComponent },
-  { path: ':id/edit', component: ClienteFormComponent },
+  { path: '', component: ClienteListComponent, canActivate: [AuthGuard] },
+  { path: 'new', component: ClienteFormComponent, canActivate: [AuthGuard] },
+  { path: ':id/edit', component: ClienteFormComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
