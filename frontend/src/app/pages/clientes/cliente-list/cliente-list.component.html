@@ -10,7 +10,7 @@
     <h1 class="h2 border-left pl-2">Clientes</h1>
   </div>
   <div class="col-md">
-    <a routerLink="new" class="btn btn-success float-right">+ Novo Cliente</a>
+    <a routerLink="new" class="btn btn-success float-right" *ngIf="perfil === 'ADMIN'">+ Novo Cliente</a>
   </div>
 </div>
 
@@ -21,7 +21,7 @@
       <th>Endereço</th>
       <th>Contatos</th>
       <th>E-mails</th>
-      <th>Ações</th>
+      <th *ngIf="perfil === 'ADMIN'">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -43,7 +43,7 @@
       <td>
         <small *ngFor="let email of cli.emails"> {{ email }} <br /> </small>
       </td>
-      <td>
+      <td *ngIf="perfil === 'ADMIN'">
         <a [routerLink]="[cli.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
         <a class="btn btn-outline-danger btn-sm" (click)="deleteCliente(cli)">Excluir</a>
       </td>

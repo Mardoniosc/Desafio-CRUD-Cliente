@@ -5,6 +5,7 @@ import toastr from 'toastr';
 import { DadosUserLogado } from 'src/app/shared/models/dados-user-logado.mode';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { Router } from '@angular/router';
+import { HttpUtilService } from 'src/app/shared/services/http-util.service';
 
 @Component({
   selector: 'app-cliente-list',
@@ -14,9 +15,13 @@ import { Router } from '@angular/router';
 export class ClienteListComponent implements OnInit {
   clientes: Cliente[] = [];
 
+  dadosUserLogged: DadosUserLogado;
+
+  perfil: string = '';
+
   constructor(
     private clienteService: ClienteService,
-    private storageService: StorageService
+    private httpUtilService: HttpUtilService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +35,12 @@ export class ClienteListComponent implements OnInit {
         }
       }
     );
+      this.carregandoDadosUsuario()
+  }
+
+  carregandoDadosUsuario(): void {
+    this.dadosUserLogged = this.httpUtilService.obterDadosUsuario();
+    this.perfil = this.dadosUserLogged.perfil[0]
   }
 
   deleteCliente(cliente: Cliente) {
