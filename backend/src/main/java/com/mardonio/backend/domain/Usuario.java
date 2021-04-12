@@ -34,7 +34,6 @@ public class Usuario implements Serializable{
 	
 	
 	public Usuario() {
-		addPerfil(Perfil.COMUM);
 	}
 
 	public Usuario(Integer id, String nome, String senha) {
@@ -42,7 +41,6 @@ public class Usuario implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
-		addPerfil(Perfil.COMUM);
 	}
 
 	public Integer getId() {

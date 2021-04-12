@@ -45,8 +45,17 @@ public class ClienteService {
 	}
 	
 	public Cliente update(Cliente obj) {
-		find(obj.getId());
-
+		
+		Endereco end = obj.getEnderecos().get(0);
+		Cliente objEnd = find(obj.getId());
+				
+		if(objEnd.getEnderecos().isEmpty()) {
+			end.setCliente(obj);
+		} else {
+			Endereco endCliente = obj.getEnderecos().get(0);
+			endCliente.setCliente(obj);
+		}
+		
 		return clienteRepository.save(obj);
 	}
 

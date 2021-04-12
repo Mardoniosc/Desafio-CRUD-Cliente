@@ -38,20 +38,20 @@ public class ClienteResource {
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping()
-	public ResponseEntity<Void> insert(@Valid @RequestBody Cliente obj) {
+	public ResponseEntity<Cliente> insert(@Valid @RequestBody Cliente obj) {
 		obj = clienteService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(uri).body(obj);
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody Cliente obj, @PathVariable Integer id){
+	public ResponseEntity<Cliente> update(@Valid @RequestBody Cliente obj, @PathVariable Integer id){
 		obj.setId(id);
 		obj = clienteService.update(obj);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(obj);
 
 	}
 	
