@@ -23,8 +23,8 @@ export class ClienteListComponent implements OnInit {
     this.clienteService.getAll().subscribe(
       (data) => (this.clientes = data),
       (err) => {
-        if (err.status === 403) {
-          toastr.error('Usuário não autorizado a listar clientes!', 'Erro 403');
+        if(err.status === 403) {
+          toastr.error('Acesso Negado', 'Erro ' + err.status)
         } else {
           toastr.error(err.error.message, 'Erro ' + err.status);
         }
@@ -40,7 +40,13 @@ export class ClienteListComponent implements OnInit {
         (data) => {
           this.clientes = this.clientes.filter((x) => x != cliente);
         },
-        (err) => alert('Erro ao tentar excluir!!')
+        (err) => {
+          if(err.status == 403) {
+            toastr.error('Acesso Negado', 'Erro ' + err.status)
+          } else {
+            toastr.error(err.error.message, 'Erro ' + err.status);
+          }
+        }
       );
     }
   }

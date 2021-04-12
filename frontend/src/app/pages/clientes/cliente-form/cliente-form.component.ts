@@ -1,5 +1,11 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
@@ -90,16 +96,12 @@ export class ClienteFormComponent implements OnInit {
 
   addEmail(mail: string) {
     const email = this.clienteForm.controls.emails as FormArray;
-    email.push(
-      new FormControl(mail, [Validators.required, Validators.email])
-    );
+    email.push(new FormControl(mail, [Validators.required, Validators.email]));
   }
 
   addTelefone(fone: string) {
     const telefone = this.clienteForm.controls.telefones as FormArray;
-    telefone.push(
-      new FormControl(fone, Validators.required)
-    );
+    telefone.push(new FormControl(fone, Validators.required));
   }
 
   removeEmail(i: number) {
@@ -109,7 +111,7 @@ export class ClienteFormComponent implements OnInit {
 
   removeTelefone(i: number) {
     const telefone = this.clienteForm.controls.telefones as FormArray;
-    telefone.removeAt(i)
+    telefone.removeAt(i);
   }
 
   private loadCliente() {
@@ -123,21 +125,27 @@ export class ClienteFormComponent implements OnInit {
         .subscribe(
           (data) => {
             this.cliente = data;
-            if(this.cliente.emails.length <= 0) {
+            if (this.cliente.emails.length <= 0) {
               this.addEmail('');
             }
-            if(this.cliente.telefones.length <= 0) {
-              this.addTelefone('')
+            if (this.cliente.telefones.length <= 0) {
+              this.addTelefone('');
             }
             this.clienteForm.patchValue(this.cliente);
             this.cliente.emails.forEach((x) => this.addEmail(x));
             this.cliente.telefones.forEach((x) => this.addTelefone(x));
           },
-          (err) => console.error('Erro ao carregar a cliente', err)
+          (err) => {
+            if(err.status === 403) {
+              toastr.error('Acesso Negado', 'Erro ' + err.status)
+            } else {
+              toastr.error(err.error.message, 'Erro ' + err.status);
+            }
+          }
         );
     } else {
-      this.addEmail('')
-      this.addTelefone('')
+      this.addEmail('');
+      this.addTelefone('');
     }
   }
 
@@ -170,7 +178,13 @@ export class ClienteFormComponent implements OnInit {
 
     this.clienteService.update(cliente).subscribe(
       (cliente) => this.actionForSuccess(cliente),
-      (err) => this.actionForError(err)
+      (err) => {
+        if (err.status === 403) {
+          toastr.error('Acesso Negado', 'Erro ' + err.status);
+        } else {
+          toastr.error(err.error.message, 'Erro ' + err.status);
+        }
+      }
     );
   }
 
@@ -185,10 +199,10 @@ export class ClienteFormComponent implements OnInit {
   private actionForError(err) {
     this.submittingForm = false;
 
-    if(err.status === 403) {
-      toastr.error(err.error.message, "Erro " + err.status);
+    if (err.status === 403) {
+      toastr.error(err.error.message, 'Erro ' + err.status);
     } else if (err.status === 422) {
-      toastr.error(err.error.message, "Erro " + err.status);
+      toastr.error(err.error.message, 'Erro ' + err.status);
       this.serverErrorMessages = JSON.parse(err._body).erros;
     } else {
       toastr.error('Ocorreu um erro ao processar a sua solicitação!');
