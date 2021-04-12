@@ -40,17 +40,17 @@ public class BackendApplication implements CommandLineRunner {
 		
 		
 		
-		Cliente c1 = new Cliente(null, "Maria", "22233322233");
-		Cliente c2 = new Cliente(null, "João", "22233344455");
+		Cliente c1 = new Cliente(null, "Oliver Marcelo Tomás Martins", "10019521707");
+		Cliente c2 = new Cliente(null, "Luana Alana Alessandra da Costa", "05840917109");
 		
-		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", "Brasilia", "DF", c1);
-		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "centro", "38777012", "Brasilia", "DF", c2);
+		Endereco e1 = new Endereco(null, "Vila São Pedro", "285", "Apto 303", "Alecrim", "59030310", "Natal", "RN", c1);
+		Endereco e2 = new Endereco(null, "Rua São Cristóvão", "989", "sala 800", "Guarituba", "83311497", "Guarituba", "PR", c2);
 		
-		c1.getTelefones().addAll(Arrays.asList("6122223333","6198887777"));
-		c2.getTelefones().addAll(Arrays.asList("6122223333","6198887777"));
+		c1.getTelefones().addAll(Arrays.asList("8428667489","84981207063"));
+		c2.getTelefones().addAll(Arrays.asList("4138381257","41999205110"));
 
 		c1.getEmails().addAll(Arrays.asList("email1@gmail.com","email2@hotmail.com","email3@empresa.com"));
-		c2.getEmails().addAll(Arrays.asList("email1@gmail.com","email2@hotmail.com","email3@empresa.com"));
+		c2.getEmails().addAll(Arrays.asList("email1@gmail.com","email2@hotmail.com"));
 		
 		c1.getEnderecos().addAll(Arrays.asList(e1));
 		c2.getEnderecos().addAll(Arrays.asList(e2));
